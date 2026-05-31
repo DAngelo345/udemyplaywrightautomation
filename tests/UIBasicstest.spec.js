@@ -18,11 +18,31 @@ test('First Playwright test', async ({browser}) =>
 test('Browser Context PlayWright', async ({page}) =>
 {
    
-    // playwright does these two lines of code -- used for adding in explicit cookies / plugins 
-    // const context = await browser.newContext();
-    //const page = await context.newPage();
     await page.goto('https://google.com')
     console.log(await page.title());
+    
+    await expect(page).toHaveTitle("Google");
 
-     await expect(page).toHaveTitle("Google");
 });
+
+test.only('Locator method and Fill methods', async ({browser}) =>
+{
+
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto('https://youtube.com')
+    //css, xpath supported 
+
+ await page.locator('.ytSearchboxComponentInput').fill('Playwright tutorial');
+
+    await Promise.all([
+    page.waitForURL('**/results?search_query=*'),
+    await page.locator('button[aria-label="Search"]').first().click()
+    ]);
+
+await expect(page).toHaveURL(/results\?search_query=Playwright\+tutorial/);
+
+
+   
+});
+
