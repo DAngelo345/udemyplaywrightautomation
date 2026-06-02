@@ -90,6 +90,7 @@ test('UI CONTROLS', async ({page}) => {
 
     const userName = page.locator('#username');
     const signIn = page.locator('#signInBtn');
+    const documentLink = page.locator('[href*="documents-request"]');
     const dropDown = page.locator('select.form-control');
     await dropDown.selectOption("consult");
     await page.locator('.radiotextsty').last().click();
@@ -101,7 +102,10 @@ test('UI CONTROLS', async ({page}) => {
     await expect(page.locator('#terms')).toBeChecked();
     await page.locator("#terms").uncheck();
     console.log(await page.locator("#terms").isChecked());
+
+    //await shoud be performed inside of the expect bracket for correct testing
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
+    await expect(documentLink).toHaveAttribute('class','blinkingText');
 
 
 });
