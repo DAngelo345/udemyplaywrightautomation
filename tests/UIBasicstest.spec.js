@@ -107,6 +107,27 @@ test('UI CONTROLS', async ({page}) => {
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
     await expect(documentLink).toHaveAttribute('class','blinkingText');
 
+});
+
+test.only('Child windows handle', async ({browser}) => {
+
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+
+    const documentLink = page.locator('[href*="documents-request"]');
+    
+    const [newPage] = await Promise.all([
+        context.waitForEvent('page'), // listens for any new page pending, rejected fulfilled
+        documentLink.click(), // new page opens 'new tab' 
+    ]); 
+
+    const text = await newPage.locator('.red').textContent();
+    console.log(text);
+   
+    
+
 
 });
 
