@@ -112,7 +112,9 @@ test('UI CONTROLS', async ({page}) => {
 test.only('Child windows handle', async ({browser}) => {
 
     const context = await browser.newContext();
+  
     const page = await context.newPage();
+    const userName = page.locator('#username');
 
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
@@ -124,10 +126,15 @@ test.only('Child windows handle', async ({browser}) => {
     ]); 
 
     const text = await newPage.locator('.red').textContent();
-    console.log(text);
-   
+    const arrayText = text.split('@')
+    const domain = arrayText[1].split(' ')[0]
+
+    //console.log(domain);
+   await page.locator('#username').fill(domain);
+//    await page.pause();
+   console.log(await page.locator('#username').inputValue());
     
-//test
+
 
 });
 
