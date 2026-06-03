@@ -109,7 +109,7 @@ test('UI CONTROLS', async ({page}) => {
 
 });
 
-test.only('Child windows handle', async ({browser}) => {
+test('Child windows handle', async ({browser}) => {
 
     const context = await browser.newContext();
   
@@ -134,7 +134,5 @@ test.only('Child windows handle', async ({browser}) => {
 //    await page.pause();
    console.log(await page.locator('#username').inputValue());
     
-
-
 });
 
