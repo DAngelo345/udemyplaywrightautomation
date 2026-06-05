@@ -12,7 +12,7 @@ test('TEMP YOUTUBE VIDEO FINDER 10HR FIRE PLACE', async ({page}) =>
 });
 
 test.only('Products test locator practice', async ({ page }) => {
-  const productName = 'Zara Coat 3';
+  const productName = 'ZARA COAT 3';
   const products = page.locator('.card-body');
 
   await page.goto('https://rahulshettyacademy.com/client');
@@ -31,9 +31,19 @@ test.only('Products test locator practice', async ({ page }) => {
   for (let i = 0; i < count; ++i) {
     if ((await products.nth(i).locator('b').textContent()) === productName) {
       await products.nth(i).locator('text= Add To Cart').click();
+    console.log('Add to cart was clicked');
       break;
     }
   }
+  await page.locator('[routerLink*="cart"]').click();
+
+  await page.locator("div li").first().waitFor();
+
+  const bool = await page.locator("h3:has-text('Zara Coat 3')").isVisible();
+  expect(bool).toBeTruthy();
+
+  await page.locator('text=Checkout').click();
+
 
   //await page.pause();
 });
