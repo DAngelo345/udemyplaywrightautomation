@@ -109,7 +109,7 @@ test('UI CONTROLS', async ({page}) => {
 
 });
 
-test('Child windows handle', async ({browser}) => {
+test.only('Child windows handle', async ({browser}) => {
 
     const context = await browser.newContext();
   
@@ -126,6 +126,7 @@ test('Child windows handle', async ({browser}) => {
     ]); 
 
     const text = await newPage.locator('.red').textContent();
+    // textContent method only pulls whats been loaded onto the DOM from the start
     const arrayText = text.split('@')
     const domain = arrayText[1].split(' ')[0]
 
@@ -133,6 +134,7 @@ test('Child windows handle', async ({browser}) => {
    await page.locator('#username').fill(domain);
 //    await page.pause();
    console.log(await page.locator('#username').inputValue());
-    
+   // inputVaule method can pick up text that been entered into a form after the DOM has been loaded and altered 
+
 });
 

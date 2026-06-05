@@ -13,8 +13,8 @@ export default defineConfig({
   },
   
   use: {
-   //browserName: 'chromium',
-   channel: 'chrome',
+   browserName: 'chromium',
+   //channel: 'chrome',
     headless : false
    
   },
