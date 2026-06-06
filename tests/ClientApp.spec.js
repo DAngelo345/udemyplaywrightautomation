@@ -45,7 +45,7 @@ test.only('Products test locator practice', async ({ page }) => {
   await page.locator('text=Checkout').click();
 
 
-  //await page.pause();
+  await page.pause();
 });
 
 
