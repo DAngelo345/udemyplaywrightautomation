@@ -12,12 +12,13 @@ test('TEMP YOUTUBE VIDEO FINDER 10HR FIRE PLACE', async ({page}) =>
 });
 
 test.only('Products test locator practice', async ({ page }) => {
+  const email = 'anshika@gmail.com'
   const productName = 'ZARA COAT 3';
   const products = page.locator('.card-body');
 
   await page.goto('https://rahulshettyacademy.com/client');
 
-  await page.locator('#userEmail').fill('anshika@gmail.com');
+  await page.locator('#userEmail').fill(email);
   await page.locator('#userPassword').fill('Iamking@000');
   await page.locator('[value="Login"]').click();
 
@@ -44,8 +45,47 @@ test.only('Products test locator practice', async ({ page }) => {
 
   await page.locator('text=Checkout').click();
 
+      const cardNumber = page.locator('input[value="4542 9931 9292 2293"]');
 
-  await page.pause();
+      console.log(await cardNumber.inputValue());
+
+      await cardNumber.fill('4111 1111 1111 1111');
+
+      const dropDowns = page.locator('select.input.ddl');
+
+      await dropDowns.nth(0).selectOption('04'); // Month
+      await dropDowns.nth(1).selectOption('20'); // Year
+
+      await page.locator("//div[@class='payment__cc']//div[2]//input[1]").fill('333')
+
+      await page.locator("//div[@class='payment__info']//div[3]//div[1]//input[1]").fill("D'Angelo Thomas")
+
+      await page.locator('[name="coupon"]').fill('PlayWright Baby')
+
+const couponButton = page.locator('button:has-text("Apply Coupon")');
+
+if (await couponButton.isVisible()) {
+    await couponButton.click();
+    console.log('coupon clicked');
+} else {
+    console.log('not clicked');
+}
+
+const countryInput = page.locator('[placeholder*="Select Country"]');
+
+await countryInput.click();
+await countryInput.pressSequentially('Cay', { delay: 100 });
+
+await page.locator('.ta-results button', { hasText: ' Cayman Islands' }).click();
+
+await expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
+
+await page.locator('a:has-text("Place Order")').click();
+
+await expect(page.locator('td h1.hero-primary')).toHaveText('Thankyou for the order.');
+
+
+      //await page.pause();
 });
 
 
