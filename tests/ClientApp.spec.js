@@ -84,6 +84,35 @@ await page.locator('a:has-text("Place Order")').click();
 
 await expect(page.locator('td h1.hero-primary')).toHaveText('Thankyou for the order.');
 
+const orderIdLabel = page.locator('td.em-spacer-1 label').last();
+await expect(orderIdLabel).toBeVisible();
+const orderIdText = await orderIdLabel.textContent();
+const orderId = orderIdText.replaceAll('|', '').trim();
+console.log(orderId);
+await page.getByRole('button', { name: 'ORDERS' }).click();
+
+
+
+const rows = page.locator('tbody tr');
+
+await rows.first().waitFor();
+
+console.log(await rows.allTextContents());
+
+for (let i = 0; i < await rows.count(); ++i) {
+
+    const orderIdRow = await rows.nth(i).locator('th').textContent();
+    console.log(orderIdRow)
+
+    if (orderId.includes(orderIdRow.trim())) {
+
+        await rows.nth(i).locator('button.btn-primary').click();
+
+        break;
+    }
+}
+
+await expect(page.locator('.email-title')).toHaveText('order summary');
 
       //await page.pause();
 });
