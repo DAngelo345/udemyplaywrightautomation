@@ -9,8 +9,11 @@ await page.getByLabel("Employed").check();
 
 //select option only works when the options are within the selected tag
 await page.getByLabel("Gender").selectOption("Male")
+await page.getByPlaceholder("Password").fill("abc12345")
+await page.getByRole("button", { name: "Submit"}).click();
 
 //npx playwright test --ui
+//this command give you a full test runner with screenshots crazyyy
 await page.pause();
 
 });
