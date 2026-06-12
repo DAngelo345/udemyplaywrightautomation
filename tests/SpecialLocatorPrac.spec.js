@@ -19,4 +19,8 @@ await page.locator("app-card").filter({hasText: 'Nokia Edge'}).getByRole("button
 //this command give you a full test runner with screenshots crazyyy
 await page.pause();
 
+// this lets you click on different points on the site and it will generate the selectors
+// you can even create assertions with codegen
+//npx playwright codegen https://rahulshettyacademy.com/angularpractice/
+
 });

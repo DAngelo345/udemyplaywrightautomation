@@ -12,10 +12,14 @@ export default defineConfig({
 
   },
   
+   reporter: 'html',
+  
   use: {
    browserName: 'chromium',
    //channel: 'chrome',
-    headless : false
+    headless : false,
+    screenshot : 'on',
+    trace: 'off'//off, on retain-on-failure
    
   },
 
