@@ -34,11 +34,31 @@ const eventTitle = `Test Event ${Date.now()}`;
   await page.getByRole('spinbutton', { name: 'Total Seats*' }).fill('50');
   await page.getByTestId('add-event-btn').click();
 
-  await page.pause
-  await page.getByTestId('add-event-btn').click();
-  await page.getByText('Event Assignment').click();
-  await page.locator('section').filter({ hasText: 'All Events4' }).click();
-  await page.getByRole('cell', { name: '50/' }).click();
+  await expect(page.getByText('Event created!')).toBeVisible();
+
+  //await page.pause();
+  await page.locator('#nav-events').click();
+
+  const eventCards = page.getByTestId('event-card');
+
+await expect(eventCards.first()).toBeVisible();
+
+const matchingCard = eventCards.filter({
+    hasText: eventTitle
+});
+
+console.log(eventCards)
+console.log(eventTitle)
+console.log(matchingCard)
+
+await expect(matchingCard).toBeVisible({
+    timeout: 5000
+});
+
+
+
+  
+ // await page.getByRole('cell', { name: '50/' }).click();
 });
 
 
