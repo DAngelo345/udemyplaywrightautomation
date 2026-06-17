@@ -55,6 +55,22 @@ await expect(matchingCard).toBeVisible({
     timeout: 5000
 });
 
+const seatText = await matchingCard
+  .locator('span:has-text("seats available")')
+  .textContent();
+
+const seatsBeforeBooking = parseInt(seatText.match(/\d+/)[0], 10);
+
+console.log('Seat text:', seatText);
+console.log('Seats before booking:', seatsBeforeBooking);
+
+await matchingCard.locator("#book-now-btn").click();
+ await page.pause();
+
+ await page.locator("#customerName").fill("maximus decimus meridius")
+ await page.locator('#customer-email').fill(email)
+ await page.locator('#phone').fill("345-555-8989")
+ await page.locator("#confirm-booking").click();
 
 
   
