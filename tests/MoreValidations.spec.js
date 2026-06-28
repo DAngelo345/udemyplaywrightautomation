@@ -23,8 +23,8 @@ await page.locator('#mousehover').hover();
 //how to selecte frames within a webstie basically a website within a website
 const framesPage = page.frameLocator("#courses-iframe");
 
-await framesPage.locator("le a[href*='lifetime-access']:visible").click();
+await framesPage.locator("li a[href*='lifetime-access']:visible").click();
 const textCheck = await framesPage.locator(".text h2").textConetent();
 
-
+await textCheck.split(" ")[1];
 })
