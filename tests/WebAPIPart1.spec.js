@@ -3,30 +3,44 @@ import { test, expect, request } from '@playwright/test';
 const loginPayload = {
     userEmail: "dangelo1thomas@gmail.com",
     userPassword: "QAprac345!"
-}
+};
+let token;
 
 test.beforeAll(async () => {
-    const apiContext = await request.newContext();
-    apiContext.post('https://rahulshettyacademy.com/api/ecom/auth/login', loginPayload)
+  const apiContext = await request.newContext();
 
-    
+  const loginResponse = await apiContext.post(
+    'https://rahulshettyacademy.com/api/ecom/auth/login',
+    {
+      data: loginPayload
+    }
+  );
+
+  expect(loginResponse.ok()).toBeTruthy();
+
+  const loginResponseJson = await loginResponse.json();
+
+  token = loginResponseJson.token;
+
+  console.log(token);
 });
 
 test.beforeEach( ()=>{
 
 });
 
-test('Products test locator practice', async ({ page }) => {
+test('API Token Testing', async ({ page }) => {
+ 
+ 
+   await page.addInitScript(value => {
+        window.localStorage.setItem('token', value);
+    }, token)
+
+
   const email = 'dangelo1thomas@gmail.com'
-  const password = 'QAprac345!'
   const productName = 'ZARA COAT 3';
+  await page.goto('https://rahulshettyacademy.com/client')
   const products = page.locator('.card-body');
-
-  await page.goto('https://rahulshettyacademy.com/client');
-
-  await page.locator('#userEmail').fill(email);
-  await page.locator('#userPassword').fill(password);
-  await page.locator('[value="Login"]').click();
 
   await page.locator('.card-body b').first().waitFor();
 
