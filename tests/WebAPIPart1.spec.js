@@ -1,11 +1,15 @@
 import { test, expect, request } from '@playwright/test';
 
-
+const loginPayload = {
+    userEmail: "dangelo1thomas@gmail.com",
+    userPassword: "QAprac345!"
+}
 
 test.beforeAll(async () => {
     const apiContext = await request.newContext();
+    apiContext.post('https://rahulshettyacademy.com/api/ecom/auth/login', loginPayload)
 
-    // use apiContext...
+    
 });
 
 test.beforeEach( ()=>{
