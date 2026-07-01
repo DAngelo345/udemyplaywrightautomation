@@ -4,7 +4,9 @@ const loginPayload = {
     userEmail: "dangelo1thomas@gmail.com",
     userPassword: "QAprac345!"
 };
+const orderPayLoad = {}
 let token;
+const orderId;
 
 test.beforeAll(async () => {
   const apiContext = await request.newContext();
@@ -23,6 +25,14 @@ test.beforeAll(async () => {
   token = loginResponseJson.token;
 
   console.log(token);
+
+  const orderResponse = apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order",{
+data : orderPayLoad,
+headers:{ 'Authorization': token,
+    'Content-Type' : 'application/json'}
+  })
+ const orderResponseJson = (await orderResponse).json();
+ orderId = orderResponseJson.orders[0];
 });
 
 test.beforeEach( ()=>{
@@ -136,6 +146,10 @@ await expect(page.locator('.email-title')).toHaveText('order summary');
 
       //await page.pause();
 });
+
+//verify if order created is showing in history
+// precondition create order.
+// 
 
 
 
